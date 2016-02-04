@@ -21,7 +21,7 @@ public class DataDao {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
-//			trns.commit();
+			trns.commit();
 			session.flush();
 			session.close();
 		}

@@ -30,7 +30,6 @@ public class Attendee implements java.io.Serializable {
 	}
 
 	@EmbeddedId
-
 	@AttributeOverrides({ @AttributeOverride(name = "dataId", column = @Column(name = "data_id", nullable = false) ),
 			@AttributeOverride(name = "number", column = @Column(name = "number", nullable = false) ) })
 	public AttendeeId getId() {
@@ -49,6 +48,12 @@ public class Attendee implements java.io.Serializable {
 
 	public void setData(Data data) {
 		this.data = data;
+	}
+	
+	//TODO remove
+	@Override
+	public String toString() {
+		return id.getNumber() + "";
 	}
 	
 }
