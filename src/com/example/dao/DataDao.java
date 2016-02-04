@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import com.example.entity.Data;
-import com.example.model.HibernateUtil;
+import com.example.beans.Data;
+import com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Data.

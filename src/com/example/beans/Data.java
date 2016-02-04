@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.example.beans;
 // Generated Feb 4, 2016 9:45:19 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
@@ -42,7 +42,6 @@ public class Data implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

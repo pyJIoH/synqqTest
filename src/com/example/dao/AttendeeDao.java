@@ -8,9 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import com.example.entity.Attendee;
-import com.example.entity.AttendeeId;
-import com.example.model.HibernateUtil;
+import com.example.beans.Attendee;
+import com.example.beans.AttendeeId;
+import com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Attendee.

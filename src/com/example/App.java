@@ -1,7 +1,7 @@
 package com.example;
 
+import com.example.beans.Data;
 import com.example.dao.DataDao;
-import com.example.entity.Data;
 
 public class App {
 
