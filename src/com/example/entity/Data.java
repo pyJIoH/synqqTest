@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.OrderBy;
 
 /**
@@ -61,6 +63,7 @@ public class Data implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "data")
 	@OrderBy(clause = "number")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Set<Attendee> getAttendeeses() {
 		return this.attendeeses;
 	}

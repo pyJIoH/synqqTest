@@ -1,5 +1,5 @@
 package com.example.entity;
-// Generated Feb 4, 2016 9:45:19 AM by Hibernate Tools 3.4.0.CR1
+// Generated Feb 4, 2016 3:53:42 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -40,6 +40,7 @@ public class AttendeeId implements java.io.Serializable {
 		this.number = number;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -52,6 +53,7 @@ public class AttendeeId implements java.io.Serializable {
 		return (this.getDataId() == castOther.getDataId()) && (this.getNumber() == castOther.getNumber());
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

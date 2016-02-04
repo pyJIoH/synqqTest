@@ -1,5 +1,5 @@
 package com.example.entity;
-// Generated Feb 4, 2016 9:45:19 AM by Hibernate Tools 3.4.0.CR1
+// Generated Feb 4, 2016 3:53:42 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "attendees", catalog = "pyjioh")
 public class Attendee implements java.io.Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	private AttendeeId id;
 	private Data data;
@@ -49,11 +50,5 @@ public class Attendee implements java.io.Serializable {
 	public void setData(Data data) {
 		this.data = data;
 	}
-	
-	//TODO remove
-	@Override
-	public String toString() {
-		return id.getNumber() + "";
-	}
-	
+
 }
