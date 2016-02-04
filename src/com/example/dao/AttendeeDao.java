@@ -3,26 +3,73 @@ package com.example.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 
 import com.example.entity.Attendee;
+import com.example.entity.AttendeeId;
 import com.example.model.HibernateUtil;
 
+/**
+ * Home object for domain model class Attendee.
+ * 
+ * @see com.example.beans.Attendee
+ * @author Hibernate Tools
+ */
+@Stateless
 public class AttendeeDao {
-	public List<Attendee> getAllAttendees() {
-		List<Attendee> attendees = new ArrayList<Attendee>();
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	public void persist(Attendee transientInstance) {
 		try {
-			trns = session.beginTransaction();
-			attendees = session.createQuery("from Attendee").list();
+			entityManager.persist(transientInstance);
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
+	public void remove(Attendee persistentInstance) {
+		try {
+			entityManager.remove(persistentInstance);
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
+	public Attendee merge(Attendee detachedInstance) {
+		try {
+			Attendee result = entityManager.merge(detachedInstance);
+			return result;
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
+	public Attendee findById(AttendeeId id) {
+		try {
+			Attendee instance = entityManager.find(Attendee.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
+	public List<Attendee> getAllAttendees() {
+		entityManager = HibernateUtil.getSessionFactory().createEntityManager();
+
+		List<Attendee> attendees = new ArrayList<Attendee>();
+		EntityTransaction tx =  entityManager.getTransaction();
+		try {
+			tx.begin();
+			attendees = entityManager.createQuery("from Attendee").getResultList();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
-			trns.commit();
-			session.flush();
-			session.close();
+			entityManager.close();
 		}
 		return attendees;
 	}
