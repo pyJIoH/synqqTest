@@ -1,0 +1,19 @@
+.input-group-addon {
+	width: 200px;
+}
+
+.input-group, .panel, .btn {
+	margin-top: 20px;
+}
+
+.panel-title {
+	font-size: 18px;
+}
+
+.btn, .input-group {
+	width: 100%;
+}
+
+#panelResults {
+    min-height: 180px;
+}

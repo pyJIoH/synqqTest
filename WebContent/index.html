@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app" lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/index.css" rel="stylesheet">
+	<title>Title</title>
 </head>
-<body>
+<body ng-controller="ctrl">
+	<div class="container">
+		<div class="row-fluid">
+			<div class="col-md-6">
+				<div class="col-md-12">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" id="events-addon">Events
+							amount</span> <input id="events" type="number" class="form-control"
+							value="10000" aria-describedby="events-addon">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" id="attendee-addon">Attendee
+							max range</span> <input id="attendee" type="number"
+							class="form-control" value="10"
+							aria-describedby="attendee-addon">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<button type="button" class="btn btn-lg btn-default">Start</button>						
+				</div>
+				<div class="col-md-6">
+					<button type="button" class="btn btn-lg btn-default">Stop</button>						
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="col-md-6">
+                <div id="panelResults" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Results</h3>
+                    </div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/index.js"></script>
 </body>
 </html>
