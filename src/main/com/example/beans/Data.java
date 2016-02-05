@@ -1,4 +1,4 @@
-package com.example.beans;
+package main.com.example.beans;
 // Generated Feb 4, 2016 9:45:19 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;

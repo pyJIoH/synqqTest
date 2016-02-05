@@ -1,4 +1,4 @@
-package com.example.dao;
+package main.com.example.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +8,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import com.example.beans.Data;
-import com.example.util.HibernateUtil;
+import main.com.example.beans.Data;
+import main.com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Data.
  * 
- * @see com.example.beans.Data
+ * @see main.com.example.beans.Data
  * @author Hibernate Tools
  */
 @Stateless
 public class DataDao {
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager entityManager = HibernateUtil.createEntityManager();
 
 	public void persist(Data transientInstance) {
 		try {
@@ -58,10 +58,8 @@ public class DataDao {
 	}
 
 	public List<Data> getAllData() {
-		entityManager = HibernateUtil.getSessionFactory().createEntityManager();
-		
 		List<Data> data = new ArrayList<Data>();
-		EntityTransaction tx =  entityManager.getTransaction();
+		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
 			data = entityManager.createQuery("from Data").getResultList();

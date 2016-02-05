@@ -1,4 +1,4 @@
-package com.example.beans;
+package main.com.example.beans;
 // Generated Feb 4, 2016 3:53:42 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.Column;

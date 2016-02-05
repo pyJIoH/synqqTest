@@ -1,4 +1,4 @@
-package com.example.dao;
+package main.com.example.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,21 +8,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import com.example.beans.Attendee;
-import com.example.beans.AttendeeId;
-import com.example.util.HibernateUtil;
+import main.com.example.beans.Attendee;
+import main.com.example.beans.AttendeeId;
+import main.com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Attendee.
  * 
- * @see com.example.beans.Attendee
+ * @see main.com.example.beans.Attendee
  * @author Hibernate Tools
  */
 @Stateless
 public class AttendeeDao {
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager entityManager = HibernateUtil.createEntityManager();
 
 	public void persist(Attendee transientInstance) {
 		try {
@@ -59,10 +59,8 @@ public class AttendeeDao {
 	}
 
 	public List<Attendee> getAllAttendees() {
-		entityManager = HibernateUtil.getSessionFactory().createEntityManager();
-
 		List<Attendee> attendees = new ArrayList<Attendee>();
-		EntityTransaction tx =  entityManager.getTransaction();
+		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
 			attendees = entityManager.createQuery("from Attendee").getResultList();
