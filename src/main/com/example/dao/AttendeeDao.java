@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 
 import main.com.example.beans.Attendee;
 import main.com.example.beans.AttendeeId;
-import main.com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Attendee.
@@ -22,7 +21,7 @@ import main.com.example.util.HibernateUtil;
 public class AttendeeDao {
 
 	@PersistenceContext
-	private EntityManager entityManager = HibernateUtil.createEntityManager();
+	private EntityManager entityManager;
 
 	public void persist(Attendee transientInstance) {
 		try {

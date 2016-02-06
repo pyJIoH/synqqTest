@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import main.com.example.beans.Event;
-import main.com.example.util.HibernateUtil;
 
 /**
  * Home object for domain model class Event.
@@ -18,10 +20,12 @@ import main.com.example.util.HibernateUtil;
  * @author Hibernate Tools
  */
 @Stateless
+@Configurable
 public class EventDao {
 
 	@PersistenceContext
-	private EntityManager entityManager = HibernateUtil.createEntityManager();
+	@Autowired
+	private EntityManager entityManager;
 
 	public void persist(Event transientInstance) {
 		try {
@@ -70,4 +74,5 @@ public class EventDao {
 		}
 		return events;
 	}
+
 }
