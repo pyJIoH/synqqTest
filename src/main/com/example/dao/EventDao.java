@@ -24,10 +24,14 @@ public class EventDao {
 	private EntityManager entityManager = JpaUtils.createEntityManager();
 	
 	public void persist(Event transientInstance) {
+		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
 		try {
 			entityManager.persist(transientInstance);
 		} catch (RuntimeException re) {
 			throw re;
+		} finally {
+			tx.commit();
 		}
 	}
 
@@ -60,8 +64,8 @@ public class EventDao {
 	public List<Event> getEvents() {
 		List<Event> events = new ArrayList<Event>();
 		EntityTransaction tx = entityManager.getTransaction();
+		tx.begin();
 		try {
-			tx.begin();
 			events = entityManager.createQuery("from Event").getResultList();
 		} catch (RuntimeException e) {
 			e.printStackTrace();

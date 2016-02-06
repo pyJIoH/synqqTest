@@ -2,13 +2,12 @@
 	var app = angular.module('app', []).controller('ctrl',
 			function($scope, $http) {
 				$scope.start = function() {
-					$http({
-						method : 'GET',
-						url : '/events'
-					}).then(function successCallback(response) {
-						alert(response.data);
-					}, function errorCallback(response) {
-					});
+					$http.post('/generate10')
+		            .success(function (data, status, headers, config) {
+		            	alert('ok');
+		            })
+		            .error(function (data, status, header, config) {
+		            });
 				}
 
 				$scope.stop = function() {
