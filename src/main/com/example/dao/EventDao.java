@@ -8,9 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-
+import main.com.example.JpaUtils;
 import main.com.example.beans.Event;
 
 /**
@@ -20,13 +18,11 @@ import main.com.example.beans.Event;
  * @author Hibernate Tools
  */
 @Stateless
-@Configurable
 public class EventDao {
 
 	@PersistenceContext
-	@Autowired
-	private EntityManager entityManager;
-
+	private EntityManager entityManager = JpaUtils.createEntityManager();
+	
 	public void persist(Event transientInstance) {
 		try {
 			entityManager.persist(transientInstance);
