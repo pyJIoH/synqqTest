@@ -65,7 +65,7 @@ public class Event implements java.io.Serializable {
 	}
 
 	@JsonIgnore //Do not serialize to JSON
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "events")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Set<Attendee> getAttendees() {
 		return this.attendees;

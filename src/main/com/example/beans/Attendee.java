@@ -20,14 +20,14 @@ public class Attendee implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private AttendeeId id;
-	private Event events;
+	private Event event;
 
 	public Attendee() {
 	}
 
-	public Attendee(AttendeeId id, Event events) {
+	public Attendee(AttendeeId id, Event event) {
 		this.id = id;
-		this.events = events;
+		this.event = event;
 	}
 
 	@EmbeddedId
@@ -43,12 +43,12 @@ public class Attendee implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "event_id", nullable = false, insertable = false, updatable = false)
-	public Event getEvents() {
-		return this.events;
+	public Event getEvent() {
+		return this.event;
 	}
 
-	public void setEvents(Event events) {
-		this.events = events;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 }
