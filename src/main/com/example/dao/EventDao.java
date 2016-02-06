@@ -8,22 +8,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import main.com.example.beans.Data;
+import main.com.example.beans.Event;
 import main.com.example.util.HibernateUtil;
 
 /**
- * Home object for domain model class Data.
+ * Home object for domain model class Event.
  * 
- * @see main.com.example.beans.Data
+ * @see main.com.example.beans.Event
  * @author Hibernate Tools
  */
 @Stateless
-public class DataDao {
+public class EventDao {
 
 	@PersistenceContext
 	private EntityManager entityManager = HibernateUtil.createEntityManager();
 
-	public void persist(Data transientInstance) {
+	public void persist(Event transientInstance) {
 		try {
 			entityManager.persist(transientInstance);
 		} catch (RuntimeException re) {
@@ -31,7 +31,7 @@ public class DataDao {
 		}
 	}
 
-	public void remove(Data persistentInstance) {
+	public void remove(Event persistentInstance) {
 		try {
 			entityManager.remove(persistentInstance);
 		} catch (RuntimeException re) {
@@ -39,35 +39,35 @@ public class DataDao {
 		}
 	}
 
-	public Data merge(Data detachedInstance) {
+	public Event merge(Event detachedInstance) {
 		try {
-			Data result = entityManager.merge(detachedInstance);
+			Event result = entityManager.merge(detachedInstance);
 			return result;
 		} catch (RuntimeException re) {
 			throw re;
 		}
 	}
 
-	public Data findById(int id) {
+	public Event findById(int id) {
 		try {
-			Data instance = entityManager.find(Data.class, id);
+			Event instance = entityManager.find(Event.class, id);
 			return instance;
 		} catch (RuntimeException re) {
 			throw re;
 		}
 	}
 
-	public List<Data> getAllData() {
-		List<Data> data = new ArrayList<Data>();
+	public List<Event> getEvents() {
+		List<Event> events = new ArrayList<Event>();
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			tx.begin();
-			data = entityManager.createQuery("from Data").getResultList();
+			events = entityManager.createQuery("from Event").getResultList();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
 			entityManager.close();
 		}
-		return data;
+		return events;
 	}
 }

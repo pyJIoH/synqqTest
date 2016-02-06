@@ -11,24 +11,24 @@ import javax.persistence.Embeddable;
 public class AttendeeId implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int dataId;
+	private int eventId;
 	private int number;
 
 	public AttendeeId() {
 	}
 
-	public AttendeeId(int dataId, int number) {
-		this.dataId = dataId;
+	public AttendeeId(int eventId, int number) {
+		this.eventId = eventId;
 		this.number = number;
 	}
 
-	@Column(name = "data_id", nullable = false)
-	public int getDataId() {
-		return this.dataId;
+	@Column(name = "event_id", nullable = false)
+	public int getEventId() {
+		return this.eventId;
 	}
 
-	public void setDataId(int dataId) {
-		this.dataId = dataId;
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
 
 	@Column(name = "number", nullable = false)
@@ -50,14 +50,14 @@ public class AttendeeId implements java.io.Serializable {
 			return false;
 		AttendeeId castOther = (AttendeeId) other;
 
-		return (this.getDataId() == castOther.getDataId()) && (this.getNumber() == castOther.getNumber());
+		return (this.getEventId() == castOther.getEventId()) && (this.getNumber() == castOther.getNumber());
 	}
 
 	@Override
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result + this.getDataId();
+		result = 37 * result + this.getEventId();
 		result = 37 * result + this.getNumber();
 		return result;
 	}

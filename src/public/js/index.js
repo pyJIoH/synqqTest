@@ -4,7 +4,7 @@
 				$scope.start = function() {
 					$http({
 						method : 'GET',
-						url : '/data'
+						url : '/events'
 					}).then(function successCallback(response) {
 						alert(response.data);
 					}, function errorCallback(response) {

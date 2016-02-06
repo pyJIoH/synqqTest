@@ -1,5 +1,5 @@
 package main.com.example.beans;
-// Generated Feb 4, 2016 3:53:42 PM by Hibernate Tools 4.0.0
+// Generated Feb 6, 2016 6:26:22 PM by Hibernate Tools 4.0.0
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,38 +17,38 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "attendees", catalog = "pyjioh")
 public class Attendee implements java.io.Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	private AttendeeId number;
-	private Data dataId;
+	private AttendeeId id;
+	private Event events;
 
 	public Attendee() {
 	}
 
-	public Attendee(AttendeeId number, Data dataId) {
-		this.number = number;
-		this.dataId = dataId;
+	public Attendee(AttendeeId id, Event events) {
+		this.id = id;
+		this.events = events;
 	}
 
 	@EmbeddedId
-	@AttributeOverrides({ @AttributeOverride(name = "dataId", column = @Column(name = "data_id", nullable = false) ),
+	@AttributeOverrides({ @AttributeOverride(name = "eventId", column = @Column(name = "event_id", nullable = false) ),
 			@AttributeOverride(name = "number", column = @Column(name = "number", nullable = false) ) })
 	public AttendeeId getId() {
-		return this.number;
+		return this.id;
 	}
 
-	public void setId(AttendeeId number) {
-		this.number = number;
+	public void setId(AttendeeId id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "data_id", nullable = false, insertable = false, updatable = false)
-	public Data getData() {
-		return this.dataId;
+	@JoinColumn(name = "event_id", nullable = false, insertable = false, updatable = false)
+	public Event getEvents() {
+		return this.events;
 	}
 
-	public void setData(Data data) {
-		this.dataId = data;
+	public void setEvents(Event events) {
+		this.events = events;
 	}
 
 }
