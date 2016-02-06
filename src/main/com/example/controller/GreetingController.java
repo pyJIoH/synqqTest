@@ -17,4 +17,11 @@ public class GreetingController {
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return new Greeting(counter.incrementAndGet(), String.format(template, name));
 	}
+	
+//	@RequestMapping(value = "/data", method = RequestMethod.GET)
+//	public Data data() {
+//		DataDao dataDao = new DataDao();
+//		List<Data> data = dataDao.getAllData();
+//		return data.toArray(new Data[data.size()])[0];
+//	}
 }
