@@ -19,36 +19,36 @@ import javax.persistence.Table;
 public class Attendee implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private AttendeeId id;
-	private Data data;
+	private AttendeeId number;
+	private Data dataId;
 
 	public Attendee() {
 	}
 
-	public Attendee(AttendeeId id, Data data) {
-		this.id = id;
-		this.data = data;
+	public Attendee(AttendeeId number, Data dataId) {
+		this.number = number;
+		this.dataId = dataId;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({ @AttributeOverride(name = "dataId", column = @Column(name = "data_id", nullable = false) ),
 			@AttributeOverride(name = "number", column = @Column(name = "number", nullable = false) ) })
 	public AttendeeId getId() {
-		return this.id;
+		return this.number;
 	}
 
-	public void setId(AttendeeId id) {
-		this.id = id;
+	public void setId(AttendeeId number) {
+		this.number = number;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "data_id", nullable = false, insertable = false, updatable = false)
 	public Data getData() {
-		return this.data;
+		return this.dataId;
 	}
 
 	public void setData(Data data) {
-		this.data = data;
+		this.dataId = data;
 	}
 
 }
