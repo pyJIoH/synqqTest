@@ -6,7 +6,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 
 import main.com.example.beans.Event;
 
@@ -19,7 +18,11 @@ import main.com.example.beans.Event;
 @Stateless
 public class EventDao {
 
-	@PersistenceContext
+	public EventDao(EntityManager entityManager)
+	{
+		this.entityManager = entityManager;
+	}
+
     private EntityManager entityManager;
 	
 	public void persist(Event transientInstance) {

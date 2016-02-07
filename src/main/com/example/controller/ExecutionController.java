@@ -21,6 +21,6 @@ public class ExecutionController {
 	@Transactional
 	public void generate10() {
 		ExecutionModel executor = new ExecutionModelImpl();
-		executor.generate10();
+		executor.generate10(entityManager);
 	}
 }

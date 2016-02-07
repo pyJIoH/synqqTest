@@ -1,14 +1,19 @@
 package main.com.example.execution.model;
 
+import javax.persistence.EntityManager;
+
 import main.com.example.beans.Event;
+import main.com.example.dao.AttendeeDao;
 import main.com.example.dao.EventDao;
 import main.com.example.execution.Generator;
 
 public class ExecutionModelImpl implements ExecutionModel {
 
-	public void generate10() {
+	@Override
+	public void generate10(EntityManager entityManager) {
 		Generator gen = new Generator();
-		EventDao eventDao = new EventDao();
+		EventDao eventDao = new EventDao(entityManager);
+		AttendeeDao attendeeDao = new AttendeeDao(entityManager);
 		for (int i = 0; i < 10; i++) {
 			Event event = gen.getNewEvent();
 			eventDao.persist(event);

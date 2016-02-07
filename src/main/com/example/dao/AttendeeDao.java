@@ -6,7 +6,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 
 import main.com.example.beans.Attendee;
 import main.com.example.beans.AttendeeId;
@@ -20,7 +19,11 @@ import main.com.example.beans.AttendeeId;
 @Stateless
 public class AttendeeDao {
 
-	@PersistenceContext
+	public AttendeeDao(EntityManager entityManager)
+	{
+		this.entityManager = entityManager;
+	}
+
 	private EntityManager entityManager;
 
 	public void persist(Attendee transientInstance) {

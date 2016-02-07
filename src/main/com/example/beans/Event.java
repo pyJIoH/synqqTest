@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,7 +66,7 @@ public class Event implements java.io.Serializable {
 	}
 
 	@JsonIgnore //Do not serialize to JSON
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "event")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	public Set<Attendee> getAttendees() {
 		return this.attendees;
