@@ -1,7 +1,8 @@
-package main.com.example.execution;
+package main.com.example.execution.model;
 
 import main.com.example.beans.Event;
 import main.com.example.dao.EventDao;
+import main.com.example.execution.Writer;
 
 public class ExecutionModelImpl implements ExecutionModel {
 	

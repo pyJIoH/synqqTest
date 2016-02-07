@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
-import main.com.example.JpaUtils;
 import main.com.example.beans.Event;
 
 /**
@@ -21,17 +20,13 @@ import main.com.example.beans.Event;
 public class EventDao {
 
 	@PersistenceContext
-	private EntityManager entityManager = JpaUtils.createEntityManager();
+    private EntityManager entityManager;
 	
 	public void persist(Event transientInstance) {
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
 		try {
 			entityManager.persist(transientInstance);
 		} catch (RuntimeException re) {
 			throw re;
-		} finally {
-			tx.commit();
 		}
 	}
 

@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.com.example.execution.ExecutionModel;
-import main.com.example.execution.ExecutionModelImpl;
+import main.com.example.execution.model.ExecutionModel;
+import main.com.example.execution.model.ExecutionModelImpl;
 
 @RestController
 public class ExecutionController {
