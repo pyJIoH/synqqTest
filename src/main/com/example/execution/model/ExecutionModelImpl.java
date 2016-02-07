@@ -5,7 +5,7 @@ import main.com.example.dao.EventDao;
 import main.com.example.execution.Generator;
 
 public class ExecutionModelImpl implements ExecutionModel {
-	
+
 	public void generate10() {
 		Generator gen = new Generator();
 		EventDao eventDao = new EventDao();
