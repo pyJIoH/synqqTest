@@ -2,15 +2,19 @@
 	var app = angular.module('app', []).controller('ctrl',
 			function($scope, $http) {
 				$scope.start = function() {
-					$http.post('/generate10')
+					$http.post('/start')
 		            .success(function (data, status, headers, config) {
-		            	alert('ok');
 		            })
 		            .error(function (data, status, header, config) {
 		            });
 				}
 
 				$scope.stop = function() {
+					$http.post('/stop')
+		            .success(function (data, status, headers, config) {
+		            })
+		            .error(function (data, status, header, config) {
+		            });
 				}
 			});
 })()
