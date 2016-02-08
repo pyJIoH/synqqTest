@@ -18,13 +18,12 @@ import main.com.example.beans.Event;
 @Stateless
 public class EventDao {
 
-	public EventDao(EntityManager entityManager)
-	{
+	public EventDao(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 
-    private EntityManager entityManager;
-	
+	private EntityManager entityManager;
+
 	public void persist(Event transientInstance) {
 		try {
 			entityManager.persist(transientInstance);
@@ -53,8 +52,9 @@ public class EventDao {
 	public Event saveOrUpdate(Event detachedInstance) {
 		try {
 			Event result = findById(detachedInstance.getId());
-			if (result != null)
+			if (result != null) {
 				remove(result);
+			}
 			entityManager.persist(detachedInstance);
 			return result;
 		} catch (RuntimeException re) {
