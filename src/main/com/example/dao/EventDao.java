@@ -50,6 +50,18 @@ public class EventDao {
 		}
 	}
 
+	public Event saveOrUpdate(Event detachedInstance) {
+		try {
+			Event result = findById(detachedInstance.getId());
+			if (result != null)
+				remove(result);
+			entityManager.persist(detachedInstance);
+			return result;
+		} catch (RuntimeException re) {
+			throw re;
+		}
+	}
+
 	public Event findById(int id) {
 		try {
 			Event instance = entityManager.find(Event.class, id);
