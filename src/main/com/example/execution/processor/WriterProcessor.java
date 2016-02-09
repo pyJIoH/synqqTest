@@ -6,21 +6,15 @@ import main.com.example.beans.Event;
 import main.com.example.dao.EventDao;
 import main.com.example.execution.Generator;
 
-public class WriterProcessor implements Runnable {
-	private volatile boolean running = true;
-	private volatile EntityManager entityManager;
-
-	public WriterProcessor(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+public class WriterProcessor extends AbstractProcessor {
 	
-	public void terminate() {
-        running = false;
-    }
+	public WriterProcessor(EntityManager entityManager) {
+		super(entityManager);
+	}
 
 	public void generate(int count) {
 		Generator gen = new Generator();
-		EventDao eventDao = new EventDao(entityManager);
+		EventDao eventDao = new EventDao(getEntityManager());
 		for (int i = 0; i < count; i++) {
 			Event event = gen.getNewEvent();
 			eventDao.saveOrUpdate(event);
@@ -30,7 +24,7 @@ public class WriterProcessor implements Runnable {
 	@Override
 	public void run() {
 		Generator gen = new Generator();
-		EventDao eventDao = new EventDao(entityManager);
+		EventDao eventDao = new EventDao(getEntityManager());
 		while (running) {
 			try {
 				Event event = gen.getNewEvent();
