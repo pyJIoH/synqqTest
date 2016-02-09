@@ -5,8 +5,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import main.com.example.execution.Writer;
-import main.com.example.execution.processor.WriterProcessor;
 
 @RestController
 public class ExecutionController {
@@ -24,11 +25,15 @@ public class ExecutionController {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+    @Autowired
+    EntityManagerFactory entityManagerFactory;
+    
+    
 	@Transactional
 	@RequestMapping(value = "/generate", method = RequestMethod.POST)
 	public void generate(@RequestParam("count") int count) {
-		WriterProcessor executor = new WriterProcessor(entityManager);
-		executor.generate(count);
+		Writer writer = new Writer();
+		writer.syncGenerate(entityManager, count);
 	}
 
 	@Transactional
@@ -37,7 +42,7 @@ public class ExecutionController {
 		Writer writer = new Writer();
 		String uuid = UUID.randomUUID().toString();
 		writers.put(uuid, writer);
-		writer.startAsync(entityManager);
+		writer.startAsync(entityManagerFactory.createEntityManager());
 		return "{\"uuid\": \"" + uuid  + "\"}";
 	}
 
@@ -46,7 +51,7 @@ public class ExecutionController {
 	public void stop(@RequestParam("uuid") String uuid) {
 		Writer writer = writers.get(uuid);
 		if (writer != null) {
-			writer.stopAsync(entityManager);
+			writer.stopAsync();
 			writers.remove(uuid);
 		}
 	}

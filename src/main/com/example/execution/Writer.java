@@ -10,7 +10,6 @@ public class Writer {
 
 	private Thread thread = null;
 	private WriterProcessor runnable = null;
-	private boolean running = false;
 
 	public void syncGenerate(EntityManager entityManager, int count) {
 		Generator gen = new Generator();
@@ -27,7 +26,7 @@ public class Writer {
         thread.start();
 	}
 
-	public void stopAsync(EntityManager entityManager) {
+	public void stopAsync() {
 		if (thread != null) {
             runnable.terminate();
             try {
@@ -37,24 +36,4 @@ public class Writer {
 			}
 		}
 	}
-	
-	public void startSync(EntityManager entityManager) {
-		running = true;
-		Generator gen = new Generator();
-		EventDao eventDao = new EventDao(entityManager);
-		while (running) {
-			Event event = gen.getNewEvent();
-			eventDao.saveOrUpdate(event);
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void stopSync(EntityManager entityManager) {
-		running = false;
-	}
-	
 }

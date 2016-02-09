@@ -38,7 +38,7 @@ public class WriterProcessor implements Runnable {
 			try {
 				Event event = gen.getNewEvent();
 				eventDao.saveOrUpdate(event);
-				Thread.sleep(500);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				running = false;
 			}

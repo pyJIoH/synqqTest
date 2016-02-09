@@ -17,12 +17,11 @@ import main.com.example.beans.Event;
  */
 @Stateless
 public class EventDao {
+	private EntityManager entityManager;
 
 	public EventDao(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-
-	private EntityManager entityManager;
 
 	public void persist(Event transientInstance) {
 		try {
