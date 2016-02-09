@@ -13,12 +13,7 @@
 				}
 
 				$scope.stop = function() {
-			        var data = $.param({
-			            json: JSON.stringify({
-			                uuid: $scope.uuid
-			            })
-			        });
-					$http.post('/stop', data)
+					$http.post('/stop?uuid=' + $scope.uuid)
 			            .success(function (data, status, headers, config) {
 			            	$scope.startDisabled = false;
 			            })

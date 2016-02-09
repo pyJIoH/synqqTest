@@ -37,7 +37,7 @@ public class ExecutionController {
 		Writer writer = new Writer();
 		String uuid = UUID.randomUUID().toString();
 		writers.put(uuid, writer);
-//		writer.startAsync(entityManager);
+		writer.startAsync(entityManager);
 		return "{\"uuid\": \"" + uuid  + "\"}";
 	}
 
