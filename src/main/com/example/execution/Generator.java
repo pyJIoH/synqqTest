@@ -1,10 +1,9 @@
 package main.com.example.execution;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import main.com.example.beans.Attendee;
 import main.com.example.beans.AttendeeId;
@@ -13,7 +12,7 @@ import main.com.example.beans.Event;
 public class Generator {
 	private int id;
 	private int startTime;
-	private List<Integer> atendeesNumbers = new LinkedList<>();
+	private Set<Integer> atendeesNumbers = new TreeSet<>();
 	
 	private void generateData() {
 		atendeesNumbers.clear();
@@ -21,7 +20,7 @@ public class Generator {
 		startTime = new Random().nextInt(100000) + 1; //can't be 0
 		int atendeesCount = new Random().nextInt(6); // [0..5] values
 		for (int i = 0; i < atendeesCount; i++) {
-			atendeesNumbers.add(i + 2);
+			atendeesNumbers.add(new Random().nextInt(10) + 1); //[1..10] values, cannot duplicate
 		}
 	}
 	
