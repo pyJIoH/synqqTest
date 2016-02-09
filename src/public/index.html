@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="app" lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-	<meta charset="UTF-8">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/index.css" rel="stylesheet">
-	<title>synqq</title>
+<meta charset="UTF-8">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/index.css" rel="stylesheet">
+<title>synqq</title>
 </head>
 <body ng-controller="ctrl" ng-init="uuid">
 	<div class="container">
@@ -14,14 +14,23 @@
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="events-addon">Events
 							amount</span> <input id="events" type="number" class="form-control"
-							value="10000" aria-describedby="events-addon" ng-disabled="startDisabled">
+							value="10000" aria-describedby="events-addon"
+							ng-disabled="startDisabled">
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="input-group input-group-lg">
 						<span class="input-group-addon" id="attendee-addon">Attendee
 							max range</span> <input id="attendee" type="number" class="form-control"
-							value="10" aria-describedby="attendee-addon" ng-disabled="startDisabled">
+							value="10" aria-describedby="attendee-addon"
+							ng-disabled="startDisabled">
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon" id="read-write-addon">Read/Write
+							threads</span> <input id="read-write" type="number" class="form-control"
+							value="10" aria-describedby="read-write-addon" ng-disabled="true">
 					</div>
 				</div>
 				<div class="col-md-6">
