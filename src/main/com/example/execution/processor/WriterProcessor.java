@@ -2,8 +2,6 @@ package main.com.example.execution.processor;
 
 import javax.persistence.EntityManager;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import main.com.example.beans.Event;
 import main.com.example.dao.EventDao;
 import main.com.example.execution.Generator;
@@ -30,7 +28,6 @@ public class WriterProcessor implements Runnable {
 	}
 
 	@Override
-	@Transactional
 	public void run() {
 		Generator gen = new Generator();
 		EventDao eventDao = new EventDao(entityManager);
