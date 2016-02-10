@@ -20,7 +20,7 @@ public class ReaderProcessor extends AbstractProcessor {
 		EventGenerator gen = new EventGenerator();
 		EventDao eventDao = new EventDao(getEntityManager());
 		while (running) {
-			try {
+//			try {
 				int startTime = gen.getNewStartTime();
 				int anotherStartTime = gen.getNewStartTime();
 				int[] sortedTime = new int[] {startTime, anotherStartTime};
@@ -28,11 +28,12 @@ public class ReaderProcessor extends AbstractProcessor {
 				Set<Integer> attendeesRange = gen.getNewAttendees();
 				
 				List<Event> list = eventDao.getEvents(sortedTime[0], sortedTime[1], attendeesRange);
+				System.out.println(list.size() + " record(s) has been found");
 				
-				Thread.sleep(READ_WRITE_DELAY);
-			} catch (InterruptedException e) {
-				running = false;
-			}
+//				Thread.sleep(READ_WRITE_DELAY);
+//			} catch (InterruptedException e) {
+//				running = false;
+//			}
 		}
 	}
 }

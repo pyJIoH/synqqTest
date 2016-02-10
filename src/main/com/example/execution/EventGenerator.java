@@ -21,8 +21,8 @@ public class EventGenerator {
 	
 	public Set<Integer> getNewAttendees() {
 		Set<Integer> attendeesNumbers = new TreeSet<>();
-		int atendeesCount = new Random().nextInt(6); 			// [0..5] values
-		for (int i = 0; i < atendeesCount; i++) {
+		int attendeesCount = new Random().nextInt(6); 			// [0..5] values
+		for (int i = 0; i < attendeesCount; i++) {
 			attendeesNumbers.add(new Random().nextInt(10) + 1); 	// [1..10] values, cannot duplicate
 		}
 		return attendeesNumbers;

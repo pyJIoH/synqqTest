@@ -1,6 +1,7 @@
 package main.com.example.dao;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import main.com.example.beans.Event;
  */
 @Stateless
 public class EventDao {
+
 	private EntityManager entityManager;
 
 	public EventDao(EntityManager entityManager) {
@@ -80,14 +82,36 @@ public class EventDao {
 		return events;
 	}
 
-	public List<Event> getEvents(int minStartTime, int maxStartTime, Set<Integer> atendeesRange) {
+	public List<Event> getEvents(int minStartTime, int maxStartTime, Set<Integer> attendeesRange) {
 		List<Event> events = new ArrayList<Event>();
 		try {
-			events = entityManager.createQuery("from Event").getResultList();
+			String hql = generateHql(minStartTime, maxStartTime, attendeesRange);
+			events = entityManager.createQuery(hql).getResultList();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
 		return events;
+	}
+
+	private synchronized String generateHql(int minStartTime, int maxStartTime, Set<Integer> attendeesRange) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("SELECT e.id, e.startTime FROM Event as e ");
+		hql.append("LEFT JOIN e.attendees as a WHERE a.id.eventId = e.id ");
+		hql.append("AND e.startTime > " + minStartTime + " AND e.startTime < " + maxStartTime);
+
+		int attendeesRangeSize = attendeesRange.size();
+		if (attendeesRangeSize > 0) {
+			hql.append(" AND ");
+			Iterator<Integer> iterator = attendeesRange.iterator();
+			 while(iterator.hasNext()) {
+				hql.append("a.id.number = " + iterator.next());
+				if (iterator.hasNext())
+					hql.append(" OR ");
+			}
+			hql.append(" GROUP BY a.id.eventId");
+			hql.append(" HAVING count(e.id) = " + attendeesRangeSize);
+		}
+		return hql.toString();
 	}
 
 }
