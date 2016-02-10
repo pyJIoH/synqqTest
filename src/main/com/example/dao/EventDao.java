@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 
 import main.com.example.beans.Event;
@@ -51,18 +50,18 @@ public class EventDao {
 		}
 	}
 
-	public Event saveOrUpdate(Event detachedInstance) {
+	public void saveOrUpdate(Event detachedInstance) {
+		entityManager.getTransaction().begin();
 		try {
-			Event result = findById(detachedInstance.getId());
-			if (result != null) {
-				remove(result);
+			Event existingEvent = findById(detachedInstance.getId());
+			if (existingEvent != null) {
+				entityManager.remove(existingEvent);
+				entityManager.flush();
 			}
 			entityManager.persist(detachedInstance);
-			return result;
-		} catch(EntityExistsException e){
-			return entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 		} catch (RuntimeException re) {
-			throw re;
+			 throw re;
 		}
 	}
 
@@ -106,7 +105,7 @@ public class EventDao {
 		if (attendeesRangeSize > 0) {
 			hql.append(" AND ");
 			Iterator<Integer> iterator = attendeesRange.iterator();
-			 while(iterator.hasNext()) {
+			while (iterator.hasNext()) {
 				hql.append("a.id.number = " + iterator.next());
 				if (iterator.hasNext())
 					hql.append(" OR ");

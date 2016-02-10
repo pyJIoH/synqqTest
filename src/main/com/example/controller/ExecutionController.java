@@ -30,7 +30,7 @@ public class ExecutionController {
     @Autowired
     EntityManagerFactory entityManagerFactory;
     
-	@Transactional
+    @Transactional
 	@RequestMapping(value = "/start", method = RequestMethod.POST)
 	public @ResponseBody String start() {
 		
@@ -53,7 +53,6 @@ public class ExecutionController {
 			wrapper.stopAsync();
 		}
 	}
-
 
 	private void startThread(List<? extends AbstractAsyncWrapper> writers) {
 		for (AbstractAsyncWrapper wrapper : writers) {
