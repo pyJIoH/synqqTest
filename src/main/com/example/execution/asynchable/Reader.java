@@ -1,17 +1,17 @@
-package main.com.example.execution;
+package main.com.example.execution.asynchable;
 
 import javax.persistence.EntityManager;
 
 import main.com.example.execution.processor.AbstractProcessor;
-import main.com.example.execution.processor.WriterProcessor;
+import main.com.example.execution.processor.ReaderProcessor;
 
-public class Writer {
-
+public class Reader implements Asynchable {
+	
 	private Thread thread = null;
 	private AbstractProcessor runnable = null;
 
 	public void startAsync(EntityManager entityManager) {
-		runnable = new WriterProcessor(entityManager);
+		runnable = new ReaderProcessor(entityManager);
         thread = new Thread(runnable);
         thread.start();
 	}

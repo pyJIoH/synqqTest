@@ -1,5 +1,7 @@
 package main.com.example.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import main.com.example.execution.Reader;
-import main.com.example.execution.Writer;
+import main.com.example.execution.asynchable.Asynchable;
+import main.com.example.execution.asynchable.Reader;
+import main.com.example.execution.asynchable.Writer;
 
 @RestController
 public class ExecutionController {
-	Map<String, Writer> writers = new ConcurrentHashMap<>();
-	Map<String, Reader> readers = new ConcurrentHashMap<>();
+	private static final int THREADS_COUNT = 10;
+	
+	Map<String, List<? extends Asynchable>> writersThreads = new ConcurrentHashMap<>();
+	Map<String, List<? extends Asynchable>> readersThreads = new ConcurrentHashMap<>();
 	
     @Autowired
     EntityManagerFactory entityManagerFactory;
@@ -28,31 +33,63 @@ public class ExecutionController {
 	@Transactional
 	@RequestMapping(value = "/start", method = RequestMethod.POST)
 	public @ResponseBody String start() {
-		Writer writer = new Writer();
-		Reader reader = new Reader();
 		
 		String uuid = UUID.randomUUID().toString();
-		writers.put(uuid, writer);
-		readers.put(uuid, reader);
+		List<? extends Asynchable> writers = createWriters();
+		writersThreads.put(uuid, writers);
 		
-		writer.startAsync(entityManagerFactory.createEntityManager());
-		reader.startAsync(entityManagerFactory.createEntityManager());
+		List<? extends Asynchable> readers = createReaders();
+		readersThreads.put(uuid, readers);
+		
+		startThread(writers);
+		startThread(readers);
 		
 		return "{\"uuid\": \"" + uuid  + "\"}";
+	}
+
+
+	private void stopThread(List<? extends Asynchable> writers) {
+		for (Asynchable asynchable : writers) {
+			asynchable.stopAsync();
+		}
+	}
+
+
+	private void startThread(List<? extends Asynchable> writers) {
+		for (Asynchable asynchable : writers) {
+			asynchable.startAsync(entityManagerFactory.createEntityManager());
+		}
+	}
+
+	private List<? extends Asynchable> createWriters() {
+		List<Writer> writers = new ArrayList<>();
+		for (int i = 0; i < THREADS_COUNT; i++) {
+			writers.add(new Writer());
+		}
+		return writers;
+	}
+
+	private List<? extends Asynchable> createReaders() {
+		List<Reader> readers = new ArrayList<>();
+		for (int i = 0; i < THREADS_COUNT; i++) {
+			readers.add(new Reader());
+		}
+		return readers;
 	}
 
 	@Transactional
 	@RequestMapping(value = "/stop", method = RequestMethod.POST)
 	public void stop(@RequestParam("uuid") String uuid) {
-		Writer writer = writers.get(uuid);
-		if (writer != null) {
-			writer.stopAsync();
-			writers.remove(uuid);
+		List<? extends Asynchable> writers = writersThreads.get(uuid);
+		if (writers != null) {
+			stopThread(writers);
+			writersThreads.remove(uuid);
 		}
-		Reader reader = readers.get(uuid);
-		if (reader != null) {
-			reader.stopAsync();
-			readers.remove(uuid);
+		
+		List<? extends Asynchable> readers = readersThreads.get(uuid);
+		if (readers != null) {
+			stopThread(readers);
+			readersThreads.remove(uuid);
 		}
 	}
 }
