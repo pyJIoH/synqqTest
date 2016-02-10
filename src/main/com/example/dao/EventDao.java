@@ -2,10 +2,10 @@ package main.com.example.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import main.com.example.beans.Event;
 
@@ -72,14 +72,20 @@ public class EventDao {
 
 	public List<Event> getEvents() {
 		List<Event> events = new ArrayList<Event>();
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
 		try {
 			events = entityManager.createQuery("from Event").getResultList();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-		} finally {
-			entityManager.close();
+		}
+		return events;
+	}
+
+	public List<Event> getEvents(int minStartTime, int maxStartTime, Set<Integer> atendeesRange) {
+		List<Event> events = new ArrayList<Event>();
+		try {
+			events = entityManager.createQuery("from Event").getResultList();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
 		}
 		return events;
 	}
