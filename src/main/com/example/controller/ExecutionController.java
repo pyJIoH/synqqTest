@@ -4,9 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,20 +20,9 @@ import main.com.example.execution.Writer;
 public class ExecutionController {
 	Map<String, Writer> writers = new ConcurrentHashMap<>();
 	
-	@PersistenceContext
-	private EntityManager entityManager;
-
     @Autowired
     EntityManagerFactory entityManagerFactory;
     
-    
-	@Transactional
-	@RequestMapping(value = "/generate", method = RequestMethod.POST)
-	public void generate(@RequestParam("count") int count) {
-		Writer writer = new Writer();
-		writer.syncGenerate(entityManager, count);
-	}
-
 	@Transactional
 	@RequestMapping(value = "/start", method = RequestMethod.POST)
 	public @ResponseBody String start() {

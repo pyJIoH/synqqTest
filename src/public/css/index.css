@@ -2,6 +2,10 @@
 	width: 200px;
 }
 
+.form-control:disabled {
+	cursor: default;
+}
+
 .input-group, .panel, .btn {
 	margin-top: 20px;
 }
@@ -15,5 +19,5 @@
 }
 
 #panelResults {
-    min-height: 244px;
+	min-height: 244px;
 }
