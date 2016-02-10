@@ -28,7 +28,7 @@ public class ReaderProcessor extends AbstractProcessor {
 				Set<Integer> attendeesRange = gen.getNewAttendees();
 				
 				List<Event> list = eventDao.getEvents(sortedTime[0], sortedTime[1], attendeesRange);
-				System.out.println(list.size() + " record(s) has been found");
+//				System.out.println(list.size() + " record(s) has been found");
 				
 				Thread.sleep(READ_WRITE_DELAY);
 			} catch (InterruptedException e) {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 
 import main.com.example.beans.Event;
@@ -58,6 +59,8 @@ public class EventDao {
 			}
 			entityManager.persist(detachedInstance);
 			return result;
+		} catch(EntityExistsException e){
+			return entityManager.merge(detachedInstance);
 		} catch (RuntimeException re) {
 			throw re;
 		}
