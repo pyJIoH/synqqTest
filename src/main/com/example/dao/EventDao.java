@@ -95,7 +95,7 @@ public class EventDao {
 
 	private synchronized String generateHql(int minStartTime, int maxStartTime, Set<Integer> attendeesRange) {
 		StringBuilder hql = new StringBuilder();
-		hql.append("SELECT e.id FROM Event as e ");
+		hql.append("SELECT e.id, e.startTime FROM Event as e ");
 		hql.append("LEFT JOIN e.attendees as a WHERE a.id.eventId = e.id ");
 		hql.append("AND e.startTime > " + minStartTime + " AND e.startTime < " + maxStartTime);
 
