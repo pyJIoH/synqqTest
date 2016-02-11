@@ -65,7 +65,8 @@ public class EventDao {
 			entityManager.getTransaction().commit();
 			WRITES++;
 		} catch (RuntimeException re) {
-			entityManager.getTransaction().rollback();
+			if (entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
 		}
 	}
 
