@@ -79,4 +79,10 @@ public class ExecutionController {
 			readersThreads.remove(uuid);
 		}
 	}
+	
+	@RequestMapping(value = "/statistics", method = RequestMethod.GET)
+	public @ResponseBody String statistics() {
+		return "{\"reads\": \"" + 1000 + "\", \"writes\": \"" + 100 + "\"}";
+	}
+	
 }
