@@ -12,24 +12,22 @@
 			<div class="col-md-6">
 				<div class="col-md-12">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="events-addon">Events
-							amount</span> <input id="events" type="number" class="form-control"
-							value="10000" aria-describedby="events-addon"
-							ng-disabled="startDisabled">
+						<span class="input-group-addon" id="events-addon">Events amount</span>
+						<input id="events" ng-model="events" type="number" class="form-control"
+							aria-describedby="events-addon" ng-disabled="startDisabled">
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="attendee-addon">Attendee
-							max range</span> <input id="attendee" type="number" class="form-control"
-							value="10" aria-describedby="attendee-addon"
-							ng-disabled="startDisabled">
+						<span class="input-group-addon" id="attendee-addon">Attendee max range</span>
+						<input id="attendee" ng-model="attendee" type="number" class="form-control"
+							aria-describedby="attendee-addon" ng-disabled="startDisabled">
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="input-group input-group-lg">
-						<span class="input-group-addon" id="read-write-addon">Read/Write
-							threads</span> <input id="read-write" type="number" class="form-control"
+						<span class="input-group-addon" id="read-write-addon">Read/Write threads</span>
+						<input id="read-write" type="number" class="form-control"
 							value="10" aria-describedby="read-write-addon" ng-disabled="true">
 					</div>
 				</div>
@@ -47,9 +45,9 @@
 			<div class="col-md-6">
 				<div id="panelResults" class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Results</h3>
+						<h3 class="panel-title">Statistics</h3>
 					</div>
-					<div class="panel-body">Panel content</div>
+					<div class="panel-body"></div>
 				</div>
 			</div>
 		</div>

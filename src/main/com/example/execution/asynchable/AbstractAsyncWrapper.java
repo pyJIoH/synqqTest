@@ -5,11 +5,24 @@ import javax.persistence.EntityManager;
 import main.com.example.execution.processor.AbstractProcessor;
 
 public abstract class AbstractAsyncWrapper {
+	protected int eventsAmount;
+	protected int attendeeMaxRange;
 
-	protected Thread thread = null;
-	protected AbstractProcessor runnable = null;
+	private Thread thread = null;
+	private AbstractProcessor runnable = null;
 
-	abstract public void startAsync(EntityManager entityManager);
+	public AbstractAsyncWrapper(int eventsAmount, int attendeeMaxRange) {
+		this.eventsAmount = eventsAmount;
+		this.attendeeMaxRange = attendeeMaxRange;
+	}
+
+	abstract public AbstractProcessor createProcessor(EntityManager entityManager, int eventsAmount, int attendeeMaxRange);
+
+	public void startAsync(EntityManager entityManager) {
+		runnable = createProcessor(entityManager, eventsAmount, attendeeMaxRange);
+        thread = new Thread(runnable);
+        thread.start();
+	}
 
 	public void stopAsync() {
 		if (thread != null) {

@@ -11,13 +11,13 @@ import main.com.example.execution.EventGenerator;
 
 public class ReaderProcessor extends AbstractProcessor {
 
-	public ReaderProcessor(EntityManager entityManager) {
-		super(entityManager);
+	public ReaderProcessor(EntityManager entityManager, int eventsAmount, int attendeeMaxRange) {
+		super(entityManager, eventsAmount, attendeeMaxRange);
 	}
 
 	@Override
 	public void run() {
-		EventGenerator gen = new EventGenerator();
+		EventGenerator gen = new EventGenerator(eventsAmount, attendeeMaxRange);
 		EventDao eventDao = new EventDao(getEntityManager());
 		while (running) {
 			try {

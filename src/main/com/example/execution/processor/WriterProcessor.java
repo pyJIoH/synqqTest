@@ -8,13 +8,13 @@ import main.com.example.execution.EventGenerator;
 
 public class WriterProcessor extends AbstractProcessor {
 	
-	public WriterProcessor(EntityManager entityManager) {
-		super(entityManager);
+	public WriterProcessor(EntityManager entityManager, int eventsAmount, int attendeeMaxRange) {
+		super(entityManager, eventsAmount, attendeeMaxRange);
 	}
 
 	@Override
 	public void run() {
-		EventGenerator gen = new EventGenerator();
+		EventGenerator gen = new EventGenerator(eventsAmount, attendeeMaxRange);
 		EventDao eventDao = new EventDao(getEntityManager());
 		while (running) {
 			try {

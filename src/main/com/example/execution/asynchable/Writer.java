@@ -2,14 +2,18 @@ package main.com.example.execution.asynchable;
 
 import javax.persistence.EntityManager;
 
+import main.com.example.execution.processor.AbstractProcessor;
 import main.com.example.execution.processor.WriterProcessor;
 
 public class Writer extends AbstractAsyncWrapper {
 
-	public void startAsync(EntityManager entityManager) {
-		runnable = new WriterProcessor(entityManager);
-        thread = new Thread(runnable);
-        thread.start();
+	public Writer(int eventsAmount, int attendeeMaxRange) {
+		super(eventsAmount, attendeeMaxRange);
+	}
+
+	@Override
+	public AbstractProcessor createProcessor(EntityManager entityManager, int eventsAmount, int attendeeMaxRange) {
+		return new WriterProcessor(entityManager, eventsAmount, attendeeMaxRange);
 	}
 
 }

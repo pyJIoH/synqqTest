@@ -11,19 +11,29 @@ import main.com.example.beans.Event;
 
 public class EventGenerator {
 	
+	private int eventsMaxId;
+	private int attendeeMaxRange;
+	private final int startTimeMaxRange = 100000;
+	private final int attendeesAmount = 6;
+	
+	public EventGenerator(int eventsMaxId, int attendeeMaxRange) {
+		this.eventsMaxId = eventsMaxId;
+		this.attendeeMaxRange = attendeeMaxRange;
+	}
+	
 	public int getNewId() {
-		return new Random().nextInt(10000);
+		return new Random().nextInt(eventsMaxId);
 	}  
 	
 	public int getNewStartTime() {
-		return new Random().nextInt(100000) + 1; // can't be 0
+		return new Random().nextInt(startTimeMaxRange) + 1; // can't be 0
 	}
 	
 	public Set<Integer> getNewAttendees() {
 		Set<Integer> attendeesNumbers = new TreeSet<>();
-		int attendeesCount = new Random().nextInt(6); 			// [0..5] values
+		int attendeesCount = new Random().nextInt(attendeesAmount);				// [0..5] values
 		for (int i = 0; i < attendeesCount; i++) {
-			attendeesNumbers.add(new Random().nextInt(10) + 1); 	// [1..10] values, cannot duplicate
+			attendeesNumbers.add(new Random().nextInt(attendeeMaxRange) + 1); 	// [1..maxRange] values, cannot duplicate
 		}
 		return attendeesNumbers;
 	}
