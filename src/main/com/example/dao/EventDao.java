@@ -21,6 +21,9 @@ public class EventDao {
 
 	private EntityManager entityManager;
 
+	public static volatile int READS = 0;
+	public static volatile int WRITES = 0; 
+
 	public EventDao(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
@@ -60,6 +63,7 @@ public class EventDao {
 			}
 			entityManager.persist(detachedInstance);
 			entityManager.getTransaction().commit();
+			WRITES++;
 		} catch (RuntimeException re) {
 			entityManager.getTransaction().rollback();
 		}
@@ -74,21 +78,12 @@ public class EventDao {
 		}
 	}
 
-	public List<Event> getEvents() {
-		List<Event> events = new ArrayList<Event>();
-		try {
-			events = entityManager.createQuery("from Event").getResultList();
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		}
-		return events;
-	}
-
 	public List<Event> getEvents(int minStartTime, int maxStartTime, Set<Integer> attendeesRange) {
 		List<Event> events = new ArrayList<Event>();
 		try {
 			String hql = generateHql(minStartTime, maxStartTime, attendeesRange);
 			events = entityManager.createQuery(hql).getResultList();
+			READS++;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}

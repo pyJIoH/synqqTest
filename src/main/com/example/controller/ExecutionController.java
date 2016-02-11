@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import main.com.example.dao.EventDao;
 import main.com.example.execution.asynchable.AbstractAsyncWrapper;
 import main.com.example.execution.asynchable.factory.AsyncWrapperFactory;
 
@@ -82,7 +83,13 @@ public class ExecutionController {
 	
 	@RequestMapping(value = "/statistics", method = RequestMethod.GET)
 	public @ResponseBody String statistics() {
-		return "{\"reads\": \"" + 1000 + "\", \"writes\": \"" + 100 + "\"}";
+		synchronized (this) {
+			int reads = EventDao.READS;
+			EventDao.READS = 0;
+			int writes = EventDao.WRITES;
+			EventDao.WRITES = 0;
+			return "{\"reads\": \"" + reads + "\", \"writes\": \"" + writes + "\"}";
+		}
 	}
 	
 }
