@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 
 public abstract class AbstractProcessor implements Runnable {
 	private volatile EntityManager entityManager;
-	protected static final int READ_WRITE_DELAY = 100; 
+	protected static final int READ_WRITE_DELAY = 0; 
 	protected volatile boolean running = true;
 	protected volatile int eventsAmount;
 	protected volatile int attendeeMaxRange;
