@@ -11,18 +11,18 @@ import main.com.example.beans.Event;
 
 public class EventGenerator {
 	
-	private int eventsMaxId;
+	private int eventMaxId;
 	private int attendeeMaxRange;
 	private final int startTimeMaxRange = 100000;
 	private final int attendeesAmount = 6;
 	
-	public EventGenerator(int eventsMaxId, int attendeeMaxRange) {
-		this.eventsMaxId = eventsMaxId;
+	public EventGenerator(int eventMaxId, int attendeeMaxRange) {
+		this.eventMaxId = eventMaxId;
 		this.attendeeMaxRange = attendeeMaxRange;
 	}
 	
 	public int getNewId() {
-		return new Random().nextInt(eventsMaxId);
+		return new Random().nextInt(eventMaxId);
 	}  
 	
 	public int getNewStartTime() {

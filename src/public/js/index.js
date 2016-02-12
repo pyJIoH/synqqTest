@@ -7,6 +7,7 @@
 				var statistics;
 				
 				$scope.start = function() {
+					$scope.statArea = "";
 					$http.post('/start?eventsAmount=' + $scope.events +'&attendeeMaxRange=' + $scope.attendee)
 			            .success(function (data, status, headers, config) {
 			            	$scope.startDisabled = true;
