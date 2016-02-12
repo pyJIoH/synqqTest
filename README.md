@@ -12,9 +12,22 @@ This application creates 10 threads of Writers and Readers which produce CRUD op
 5. Run as Java application
 
 ### Usage
+
+* Run this application
+* Go to http://localhost:8080/ (or accprding your tomcat settings)
+* Setup generation settings
+  * Events amount defines the maximum count of events (N)
+  * Attendee max range settings up range 1..M
+* Press Start to begin reading / writing processes and Stop to finish it
+
 ![alt text](https://img-fotki.yandex.ru/get/64827/11245482.4/0_a1999_128bddd1_X5L)
 
 ![alt text](https://img-fotki.yandex.ru/get/65661/11245482.4/0_a1998_98fa5b0d_XXL)
 
 
 ## Architecture
+### Database
+![alt text](https://img-fotki.yandex.ru/get/4005/11245482.4/0_a1996_5c8aad6e_X5L)
+
+### Application
+![alt text](https://img-fotki.yandex.ru/get/41207/11245482.4/0_a199a_72299dac_X5L)
