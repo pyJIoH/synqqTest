@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +52,10 @@ public class ExecutionController {
 
 		startThread(writers);
 		startThread(readers);
-
-		return "{\"uuid\": \"" + uuid + "\"}";
+		
+		JsonObjectBuilder uuidJson = Json.createObjectBuilder();
+		uuidJson.add("uuid", uuid);
+		return uuidJson.build().toString();
 	}
 
 	private void stopThread(List<AbstractAsyncWrapper> writers) {
@@ -88,7 +92,11 @@ public class ExecutionController {
 			EventDao.READS = 0;
 			int writes = EventDao.WRITES;
 			EventDao.WRITES = 0;
-			return "{\"reads\": \"" + reads + "\", \"writes\": \"" + writes + "\"}";
+			
+			JsonObjectBuilder uuidJson = Json.createObjectBuilder();
+			uuidJson.add("reads", reads);
+			uuidJson.add("writes", writes);
+			return uuidJson.build().toString();
 		}
 	}
 	
