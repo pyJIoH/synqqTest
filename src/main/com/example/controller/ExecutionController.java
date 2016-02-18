@@ -88,10 +88,10 @@ public class ExecutionController {
 	@RequestMapping(value = "/statistics", method = RequestMethod.GET)
 	public @ResponseBody String statistics() {
 		synchronized (this) {
-			int reads = EventDao.READS;
-			EventDao.READS = 0;
-			int writes = EventDao.WRITES;
-			EventDao.WRITES = 0;
+			int reads = EventDao.READS.get();
+			EventDao.READS.set(0);
+			int writes = EventDao.WRITES.get();
+			EventDao.WRITES.set(0);
 			
 			JsonObjectBuilder uuidJson = Json.createObjectBuilder();
 			uuidJson.add("reads", reads);

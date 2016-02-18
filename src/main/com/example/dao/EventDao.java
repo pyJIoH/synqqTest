@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,8 +22,8 @@ public class EventDao {
 
 	private EntityManager entityManager;
 
-	public static volatile int READS = 0;
-	public static volatile int WRITES = 0; 
+	public static volatile AtomicInteger READS = new AtomicInteger();
+	public static volatile AtomicInteger WRITES = new AtomicInteger(); 
 
 	public EventDao(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -63,7 +64,7 @@ public class EventDao {
 			}
 			entityManager.persist(detachedInstance);
 			entityManager.getTransaction().commit();
-			WRITES++;
+			WRITES.incrementAndGet();
 		} catch (RuntimeException re) {
 			if (entityManager.getTransaction().isActive())
 				entityManager.getTransaction().rollback();
@@ -84,7 +85,7 @@ public class EventDao {
 		try {
 			String hql = generateHql(minStartTime, maxStartTime, attendeesRange);
 			events = entityManager.createQuery(hql).getResultList();
-			READS++;
+			READS.incrementAndGet();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
